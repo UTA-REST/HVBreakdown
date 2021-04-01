@@ -96,8 +96,6 @@ def processdat(x, y, n, m):
         ya=np.array(ya)*1000
         yerr=np.array(yerr)*1000
         
-    #else:
-    #    print('Warning: This data does not match any error analysis')
         
     return ya, yerr, xa, xerr, trend
 
@@ -191,7 +189,5 @@ def processdatE(x, y, n, m):
         ya=np.array(ya)*1000
         yerr=np.array(yerr)*1000
        
-    else:
-        print('Warning: This data does not match any error analysis')
 
     return ya, yerr, xa, xerr
