@@ -6,14 +6,14 @@
 import numpy as np
 
 
-def processdat(x, y, n):
+def processdat(x, y, n, m):
     yerr = []
     ya = []
     xa = []
     xerr = []
     
     #Error and average for 2 cm
-    if (n == 1):
+    if (n == '20mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*2*760)
@@ -25,7 +25,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 1 mm
-    if (n == 2):
+    if (n == '1mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*.1*760)
@@ -37,7 +37,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 1 cm
-    if (n == 3):
+    if (n == '10mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*1*760)
@@ -49,7 +49,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 5 mm
-    if (n == 4):
+    if (n == '5mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*.5*760)
@@ -61,7 +61,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for 1 mm, Absolute
-    if (n == 5):
+    if (n == '1mm' and m == 'AP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append(x[i]*.1*760)
@@ -73,7 +73,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for .1 mm, gauge
-    if (n == 6):
+    if (n == '0.1mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*.01*760)
@@ -85,7 +85,7 @@ def processdat(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for .1 mm, Absolute
-    if (n == 7):
+    if (n == '0.1mm' and m == 'AP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append(x[i]*.01*760)
@@ -96,16 +96,19 @@ def processdat(x, y, n):
         ya=np.array(ya)*1000
         yerr=np.array(yerr)*1000
         
+    #else:
+    #    print('Warning: This data does not match any error analysis')
+        
     return ya, yerr, xa, xerr, trend
 
-def processdatE(x, y, n):
+def processdatE(x, y, n, m):
     yerr = []
     ya = []
     xa = []
     xerr = []
     
     #Error and average for 2 cm
-    if (n == 1):
+    if (n == '20mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i], axis=0))
             xa.append((x[i]+1)*2*760)
@@ -117,7 +120,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 1 mm
-    if (n == 2):
+    if (n == '1mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/.1, axis=0))
             xa.append((x[i]+1)*760)
@@ -129,7 +132,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 1 cm
-    if (n == 3):
+    if (n == '10mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/1, axis=0))
             xa.append((x[i]+1)*760)
@@ -141,7 +144,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
     
     #Error and average for 5 mm
-    if (n == 4):
+    if (n == '5mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/.5, axis=0))
             xa.append((x[i]+1)*760)
@@ -153,7 +156,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for 1 mm, Absolute
-    if (n == 5):
+    if (n == '1mm' and m == 'AP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/.1, axis=0))
             xa.append(x[i]*760)
@@ -165,7 +168,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for .1 mm, Gauge
-    if (n == 6):
+    if (n == '0.1mm' and m == 'GP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/.01, axis=0))
             xa.append((x[i]+1)*760)
@@ -177,7 +180,7 @@ def processdatE(x, y, n):
         yerr=np.array(yerr)*1000
         
     #Error and average for .1 mm, Absolute
-    if (n == 7):
+    if (n == '0.1mm' and m == 'AP'):
         for i in range(len(x)):
             ya.append(np.mean(y[i]/.01, axis=0))
             xa.append(x[i]*760)
@@ -187,5 +190,8 @@ def processdatE(x, y, n):
         trend = np.poly1d(coeffs)
         ya=np.array(ya)*1000
         yerr=np.array(yerr)*1000
-        
+       
+    else:
+        print('Warning: This data does not match any error analysis')
+
     return ya, yerr, xa, xerr
