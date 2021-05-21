@@ -78,6 +78,17 @@ def processdat(x, y, n, m):
         ya=np.array(ya)*1000
         yerr=np.array(yerr)*1000
         
+     #Error and average for 2 mm
+    if (n == '2mm'):
+        for i in range(len(x)):
+            ya.append(np.mean(y[i], axis=0))
+            xa.append((x[i]+offset)*.2*760)
+            yerr.append(np.sqrt((np.std(y[i], axis=0)**2+.1**2+(ya[i]*.11565)**2)))
+            xerr.append(x[i]*.2*np.sqrt((gerr/x[i])**2+(.01/.2)**2)*760)
+        coeffs = np.polyfit(x, ya, 1)
+        trend = np.poly1d(coeffs)
+        ya=np.array(ya)*1000
+        yerr=np.array(yerr)*1000
         
     return ya, yerr, xa, xerr, trend
 
