@@ -24,13 +24,25 @@ def processdat(x, y, n, m):
         
     d = float(n.replace('mm','')) # Convert distance to integer
     
-    hysterr = .115 # hysteresis error, found by experiment
-    
-    vprec = .1 # Voltage Gauge Precision +/- 0.1 kiloVolt
+    hysterr = .06 # hysteresis error, found by experiment
     
     timeerr = .06 # Time correction Factor
     
-    ecorr = .06 # E field Correction Factor
+    if (n == '10mm'):
+        ecorr = .06 # E field Correction Factor for 10 mm
+        vprec = .1 # Voltage Gauge Precision +/- 0.1 kiloVolt
+    if (n == '5mm'):
+        ecorr = .03 # E field Correction Factor for 5 mm
+        vprec = .1 # Voltage Gauge Precision +/- 0.1 kiloVolt
+    if (n == '1mm'):
+        ecorr = .01 # E field Correction Factor for 1 mm
+        vprec = .1 # Voltage Gauge Precision +/- 0.1 kiloVolt
+    if (n == '2mm'):
+        ecorr = .01 # E field Correction Factor for 1 mm
+        vprec = .1 # Voltage Gauge Precision +/- 0.1 kiloVolt
+    if (n == '0.1mm'):
+        ecorr = 0 # E field Correction Factor for 0.1 mm
+        vprec = 0.005 #Voltage Gauge Precision for multimeter, +/- 5 Volts
 
     for i in range(len(x)):
         ya.append(np.mean(y[i], axis=0))
